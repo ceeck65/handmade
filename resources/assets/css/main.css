@@ -1,0 +1,188 @@
+/* ### Main Elements ### */
+@import "../lib/fontaewsome/css/fontawesome.css";
+@import "../lib/fontaewsome/css/fa-solid.css";
+@import "../lib/fontaewsome/css/fa-brands.css";
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    word-spacing: 1px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.button--green {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #3b8070;
+    color: #3b8070;
+    text-decoration: none;
+    padding: 10px 30px;
+}
+
+.button--green:hover {
+    color: #fff;
+    background-color: #3b8070;
+}
+
+.button--grey {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #35495e;
+    color: #35495e;
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-left: 15px;
+}
+
+.button--grey:hover {
+    color: #fff;
+    background-color: #35495e;
+}
+
+/* ### Nuxt ### */
+
+#__nuxt {
+    width: 100%;
+    height: 100%;
+}
+
+/* ### Default Layout ### */
+#__layout {
+    height: 100%;
+}
+
+.layout-default {
+    background-color: #FFFFFF;
+    height: 100%;
+    margin: 0px;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.layout-row {
+    width: 100%;
+}
+
+/* ### Sidebar ### */
+.sidebar {
+    background-color: #4D5250;
+    float: right;
+    width: 18%;
+    border-left: 2px #fff solid;
+    min-height: 100%;
+    flex-shrink: 0;
+    z-index: 10;
+    box-shadow: 0 0 0.75em 0 rgba(0, 0, 0, 0.37);
+}
+#container {
+    height: auto !important;
+    margin: 0 auto -142px;
+    min-height: 100%;
+}
+#wrap {
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+}
+#menu {
+    margin: 0;
+}
+
+#menu  > .icon-menu {
+    padding: 0 15px;
+}
+
+#menu > ul > li {
+    background: rgba(85, 91, 89, 1);
+    color: #fafafa;
+    padding: 0 0 0 10px;
+    margin: 2px 0;
+    border-bottom: rgba(0, 0, 0, 0.38) 1px solid;
+    box-shadow: 0 0 0.75em 0 rgba(88, 88, 88, 0.64);
+}
+#menu > ul > li:hover {
+    background: #788187;
+}
+#menu ul > li > a {
+    text-transform: uppercase;
+    color: #fafafa;
+}
+#menu .active {
+    background: rgba(41, 44, 49, 0.56);
+    box-shadow: 0 0 0.75em 0 rgba(135, 135, 135, 0.27);
+}
+
+#header {
+    background: none repeat scroll 0 0 #BA6F19;
+    height: 50px;
+    padding: 20px;
+}
+
+.container-avatar {
+    margin: 15px 0 0 0;
+    padding: 25px;
+    justify-content: center;
+    text-align: center;
+    border-bottom: #FFFFFF 1px solid;
+}
+
+.container-avatar > img {
+    border-radius: 100%;
+    padding: 1%;
+    border: 1px #dfdfdf solid;
+    width: 45%;
+    height: 45%;
+}
+
+#content {
+    float: right;
+    width: 82%;
+    min-height: 82.750vh;
+    overflow-y: scroll;
+    padding: auto;
+}
+
+.footer {
+    height: 54px;
+    width: 100%;
+}
+
+.footer-aside {
+    background: none repeat scroll 0 0 #4D5250;
+    float: left;
+    width: 17.250%;
+    height: 54px;
+}
+
+
+.footer-content {
+    background: none repeat scroll 0 0 #35495E;
+    float: right;
+    color: #FFFFFF;
+    text-align: center;
+    width: 82.750%;
+    height: 54px;
+}
+
+
+
+
+
+.fa-vuejs {
+    width: 250px !important;
+    height: 250px !important;
+    color: aquamarine;
+}
