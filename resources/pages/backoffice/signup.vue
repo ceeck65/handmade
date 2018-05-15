@@ -53,10 +53,10 @@
                     </b-row>
                     <b-row>
                         <b-col col="2">
-                            <b-link href="#foo">Link</b-link>
+                            <b-link to="#foo">Link</b-link>
                         </b-col>
                         <b-col col="2">
-                            <b-link href="login">LOGIN</b-link>
+                            <b-link to="login">LOGIN</b-link>
                         </b-col>
                     </b-row>
                 </b-form>

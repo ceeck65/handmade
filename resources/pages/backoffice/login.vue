@@ -35,10 +35,10 @@
                     </b-row>
                     <b-row>
                         <b-col col="2" class="link-account">
-                            <b-link href="#foo">Link</b-link>
+                            <b-link to="#foo">Link</b-link>
                         </b-col>
                         <b-col col="2" class="link-account">
-                            <b-link href="signup">REGISTER</b-link>
+                            <b-link to="signup">REGISTER</b-link>
                         </b-col>
                     </b-row>
                 </b-form>
