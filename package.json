@@ -21,8 +21,10 @@
     "@adonisjs/framework": "^4.0.27",
     "@adonisjs/ignitor": "^1.0.14",
     "@adonisjs/lucid": "^4.0.22",
+    "@adonisjs/mail": "^3.0.6",
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
+    "@adonisjs/validator": "^5.0.3",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
@@ -32,7 +34,13 @@
     "bootstrap-vue": "^1.0.2",
     "nuxt": "^1.0.0",
     "pg": "^7.4.3",
-    "qonfucius-nuxt-fontawesome": "^0.0.2"
+    "qonfucius-nuxt-fontawesome": "^0.0.2",
+    "vee-validate": "^2.0.9",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue-toastr": "^2.0.14",
+    "vue-toastr-2": "^0.0.9",
+    "vuex": "latest"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

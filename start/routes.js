@@ -15,4 +15,17 @@
 
 const Route = use('Route');
 
+// Account Public Routes
+Route.group(() => {
+    Route.post('login', 'UserController.login');
+    Route.post('logout', 'UserController.logout');
+    Route.post('refreshToken', 'UserController.refreshToken');
+    Route.post('register', 'UserController.store');
+    Route.post('checkUsername', 'UserController.checkUsername');
+    Route.post('checkEmail', 'UserController.checkEmail');
+    Route.post('confirm', 'UserController.confirmAccount');
+    Route.get('stores', 'StoreController.index');
+}).prefix('api');
+
+
 Route.any('*', 'NuxtController.render');

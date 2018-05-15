@@ -24,7 +24,10 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#FFFFFF' },
+    loading: {
+        color: '#4688ff',
+        height: '3px'
+    },
 
   /*
   ** Global CSS
@@ -39,8 +42,8 @@ module.exports = {
   plugins: [
       '~/plugins/axios',
       '~/plugins/bootstrap',
-      '~/plugins/font-awesome'
-   //   { src: '~/plugins/nuxt-client-init.js', ssr: false }
+      '~/plugins/font-awesome',
+     // { src: '~/plugins/nuxt-client-init.js', ssr: false }
     ],
 
   /*
