@@ -70,8 +70,19 @@
 
 <script>
     import Vue from 'vue';
-    import VeeValidate from 'vee-validate';
-    Vue.use(VeeValidate);
+    import VueNotifications from 'vue-notifications'
+    import miniToastr from 'mini-toastr'// https://github.com/se-panfilov/mini-toastr
+    miniToastr.init();
+    function toast({title, message, type, timeout, cb}) {
+        return miniToastr[type](message, title, timeout, cb)
+    }
+    const options = {
+        success: toast,
+        error: toast,
+        info: toast,
+        warn: toast
+    };
+    Vue.use(VueNotifications, options);
     export default {
         name: "signup",
         layout: 'auth-layout',
@@ -124,21 +135,35 @@
                 const register = await this.$store.dispatch('register', user);
                 if (register === true) {
                     this.$Message.success('Success!');
+                    this.showSuccessMsg({title: 'Error!', message: register, type: 'success', timeout: 1000})
                     this.$Modal.info({
                         title: 'Confirm E-Mail',
                         content: 'Please confirm your e-mail address to activate your account!',
                         okText: 'OK',
                         onOk: () => {
                             this.$router.replace({path: '/'});
+
                         }
                     })
                 } else if (register.jwt) {
                     this.$Message.success('Success!');
                     this.$router.replace({path: '/'});
                 } else {
-                    this.signUpErrors = register;
-                    // this.$Message.error('Register Error!')
+//                    this.signUpErrors = register;
+
+                    this.showErrorMsg({title: 'Error!', message: register, type: 'error', timeout: 1000})
                 }
+            }
+        },notifications: {
+            showSuccessMsg: {
+                type: VueNotifications.types.success,
+                title: this.title,
+                message: this.message
+            },
+            showErrorMsg: {
+                type: VueNotifications.types.error,
+                title: this.title,
+                message: this.message
             }
         }
 
@@ -157,8 +182,7 @@
     }
 
     .row {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin: 5%;
     }
 
     .login-container {

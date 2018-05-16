@@ -35,16 +35,13 @@
                     </b-row>
                     <b-row>
                         <b-col col="2" class="link-account">
-                            <b-link to="#foo">Link</b-link>
+                            <b-link to="#foo">Forgot password?</b-link>
                         </b-col>
                         <b-col col="2" class="link-account">
                             <b-link to="signup">REGISTER</b-link>
                         </b-col>
                     </b-row>
                 </b-form>
-                <div class="error" v-if="errorMessage">
-                    {{ errorMessage }}
-                </div>
             </b-col>
         </b-row>
     </div>
@@ -53,9 +50,23 @@
 <script>
     import Vue from 'vue';
     import VeeValidate from 'vee-validate';
-    import { Link } from 'bootstrap-vue/es/components';
+    import {Link} from 'bootstrap-vue/es/components';
+    import VueNotifications from 'vue-notifications'
+    import miniToastr from 'mini-toastr'// https://github.com/se-panfilov/mini-toastr
+    miniToastr.init();
+    function toast({title, message, type, timeout, cb}) {
+        return miniToastr[type](message, title, timeout, cb)
+    }
+    const options = {
+        success: toast,
+        error: toast,
+        info: toast,
+        warn: toast
+    };
+    Vue.use(VueNotifications, options);
     Vue.use(Link);
     Vue.use(VeeValidate);
+
     export default {
         name: "login",
         layout: 'auth-layout',
@@ -66,7 +77,9 @@
                     password: ''
                 },
                 show: true,
-                errorMessage: null
+                errorMessage: null,
+                title: null,
+                message: null,
             }
         },
         methods: {
@@ -83,10 +96,10 @@
                 let auth = await this.$store.dispatch('login', user);
                 if (auth.jwt) {
                     // this.$Message.success('Login successful!');
+                    this.showSuccessMsg({title: 'Error!', message: auth, type: 'success', timeout: 1000})
                     this.$router.replace({path: '/'});
                 } else {
-                    // this.$Message.error('Fail!');
-                    this.errorMessage = auth;
+                    this.showErrorMsg({title: 'Error!', message: auth, type: 'error', timeout: 1000})
                 }
             },
             onReset(evt) {
@@ -99,6 +112,18 @@
                 this.$nextTick(() => {
                     this.show = true
                 });
+            }
+        },
+        notifications: {
+            showSuccessMsg: {
+                type: VueNotifications.types.success,
+                title: this.title,
+                message: this.message
+            },
+            showErrorMsg: {
+                type: VueNotifications.types.error,
+                title: this.title,
+                message: this.message
             }
         }
 
@@ -117,17 +142,16 @@
     }
 
     .row {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin: 5%;
     }
 
     .login-container {
         background: #fafafa;
         opacity: 0.9;
         padding: 1%;
-        border-radius: 10px;
-        height: 50%;
+        border-radius: 5px;
     }
+
     button {
         width: 100%;
     }
@@ -143,7 +167,7 @@
     }
 
     .link-account {
-        padding: 15px 0;
+        padding: 5px 0;
         text-align: center;
         color: #05adff;
     }
