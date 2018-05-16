@@ -12,36 +12,48 @@
                                   label-for="exampleInput1">
                         <b-form-input id="exampleInput1"
                                       type="text"
+                                      name="username"
                                       v-model="user.username"
+                                      v-validate="{ required: true, regex: /[0-9]+/ }"
                                       placeholder="Enter username">
                         </b-form-input>
+                        <span class="error" v-show="errors.has('username')">{{ errors.first('username') }}</span>
                     </b-form-group>
                     <b-form-group id="exampleInputGroup1"
                                   label="Email:"
-                                  label-for="exampleInput1">
-                        <b-form-input id="exampleInput1"
+                                  label-for="email">
+                        <b-form-input id="email"
                                       type="email"
+                                      name="email"
                                       v-model="user.email"
+                                      v-validate="{ required: true, email: true, regex: /[AaZz0-9]+/ }"
                                       placeholder="Enter email">
                         </b-form-input>
+                        <span class="error" v-show="errors.has('email')">{{ errors.first('email') }}</span>
                     </b-form-group>
                     <b-form-group id="exampleInputGroup2"
                                   label="Password:"
-                                  label-for="exampleInput2">
-                        <b-form-input id="exampleInput2"
+                                  label-for="password">
+                        <b-form-input id="password"
+                                      name="password"
                                       type="password"
                                       v-model="user.password"
+                                      v-validate="{ required: true, is: confirmation, min: 6, regex: /[0-9]+/ }"
                                       placeholder="Enter password">
                         </b-form-input>
+                        <span class="error" v-show="errors.has('password')">{{ errors.first('password') }}</span>
                     </b-form-group>
                     <b-form-group id="exampleInputGroup2"
                                   label="Password:"
-                                  label-for="exampleInput2">
-                        <b-form-input id="exampleInput2"
+                                  label-for="password_confirmation">
+                        <b-form-input id="password_confirmation"
                                       type="password"
-                                      v-model="user.password_confirmation"
+                                      name="password_confirmation"
+                                      v-model="confirmation"
+                                      v-validate="{ required: true, regex: /[0-9]+/ }"
                                       placeholder="Confirm password">
                         </b-form-input>
+                        <span class="error" v-show="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                     </b-form-group>
                     <b-row>
                         <b-col col="2">
@@ -71,7 +83,8 @@
 <script>
     import Vue from 'vue';
     import VueNotifications from 'vue-notifications'
-    import miniToastr from 'mini-toastr'// https://github.com/se-panfilov/mini-toastr
+    import miniToastr from 'mini-toastr'
+    import VeeValidate from 'vee-validate';
     miniToastr.init();
     function toast({title, message, type, timeout, cb}) {
         return miniToastr[type](message, title, timeout, cb)
@@ -83,6 +96,7 @@
         warn: toast
     };
     Vue.use(VueNotifications, options);
+    Vue.use(VeeValidate);
     export default {
         name: "signup",
         layout: 'auth-layout',
@@ -111,8 +125,8 @@
 
             handleSubmit(name, formData) {
                 this.loading = true;
-                this.register(formData);
-                // this.$refs[name].validate((valid) => {
+                this.register(formData)
+                // this.$refs.name.validate((valid) => {
                 //     if (valid) {
                 //         this.register(formData)
                 //     } else {
@@ -135,7 +149,7 @@
                 const register = await this.$store.dispatch('register', user);
                 if (register === true) {
                     this.$Message.success('Success!');
-                    this.showSuccessMsg({title: 'Error!', message: register, type: 'success', timeout: 1000})
+                    this.showSuccessMsg({title: 'Error!', message: register.message, type: 'success', timeout: 1000})
                     this.$Modal.info({
                         title: 'Confirm E-Mail',
                         content: 'Please confirm your e-mail address to activate your account!',
@@ -171,14 +185,17 @@
 </script>
 
 <style scoped>
+    body, html {
+        background: #15b5cc url("../../static/img/bg-login.jpg") !important;
+    }
     .fullscreen_bg {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        background: #15b5cc url("../../static/img/bg-login.jpg") !important;
         background-size: cover;
-        background: url('../../static/img/bg-login.jpg') repeat 50% 50%;
+        position: absolute;
+        min-width: 100%;
+        width: 100%;
+        top: 0;
+        bottom: 0;
     }
 
     .row {
@@ -190,7 +207,7 @@
         opacity: 0.9;
         padding: 1%;
         border-radius: 10px;
-        height: 50%;
+        height: 100%;
     }
     button {
         width: 100%;

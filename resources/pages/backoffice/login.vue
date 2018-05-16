@@ -96,7 +96,7 @@
                 let auth = await this.$store.dispatch('login', user);
                 if (auth.jwt) {
                     // this.$Message.success('Login successful!');
-                    this.showSuccessMsg({title: 'Error!', message: auth, type: 'success', timeout: 1000})
+                    this.showSuccessMsg({title: 'Success!', message: "Welcome", type: 'success', timeout: 1000});
                     this.$router.replace({path: '/'});
                 } else {
                     this.showErrorMsg({title: 'Error!', message: auth, type: 'error', timeout: 1000})

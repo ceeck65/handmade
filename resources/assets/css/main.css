@@ -206,3 +206,9 @@ footer {
     color: white !important;
 }
 
+.error {
+    color: #ff565d;
+    padding: 2%;
+    font-weight: 600;
+}
+
