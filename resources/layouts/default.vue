@@ -73,5 +73,11 @@
 <script>
     export default {
         name: 'default-layout',
+        async asyncData({app, store, redirect}) {
+            if (! store.state.auth) {
+                redirect(301, '/account/login')
+            }
+        },
+
     };
 </script>

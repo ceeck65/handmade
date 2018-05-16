@@ -31,6 +31,12 @@ const store = () => new Vuex.Store({
             }
         },
 
+        nuxtServerInit ({ commit }, { req }) {
+            if (req.session && req.session.auth) {
+                commit('SET_USER', req.session.auth)
+            }
+        },
+
         async login({commit}, user) {
             try {
                 const auth = await this.$axios.$post('login', user);

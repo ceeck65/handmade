@@ -14,7 +14,7 @@
                                       type="text"
                                       name="username"
                                       v-model="user.username"
-                                      v-validate="{ required: true, regex: /[0-9]+/ }"
+                                      v-validate="{ required: true, regex: /^\w+$/ }"
                                       placeholder="Enter username">
                         </b-form-input>
                         <span class="error" v-show="errors.has('username')">{{ errors.first('username') }}</span>
@@ -26,7 +26,7 @@
                                       type="email"
                                       name="email"
                                       v-model="user.email"
-                                      v-validate="{ required: true, email: true, regex: /[AaZz0-9]+/ }"
+                                      v-validate="{ required: true, email: true, regex: regxEmail  }"
                                       placeholder="Enter email">
                         </b-form-input>
                         <span class="error" v-show="errors.has('email')">{{ errors.first('email') }}</span>
@@ -111,7 +111,8 @@
                 show: true,
                 errorMessage: null,
                 signUpErrors: null,
-                loading: false
+                loading: false,
+                regxEmail: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             }
         },
         methods: {

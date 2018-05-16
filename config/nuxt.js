@@ -44,7 +44,7 @@ module.exports = {
       '~/plugins/bootstrap',
       '~/plugins/font-awesome',
       '~/plugins/main',
-     // { src: '~/plugins/nuxt-client-init.js', ssr: false }
+     { src: '~/plugins/nuxt-client-init.js', ssr: false }
     ],
 
   /*

@@ -82,6 +82,11 @@
                 message: null,
             }
         },
+        fetch ({ store, redirect }) {
+            if (store.state.auth) {
+                return redirect('/')
+            }
+        },
         methods: {
             handleSubmit(name, formData) {
                 console.log(formData);
