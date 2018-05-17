@@ -5,39 +5,41 @@
                 <b-col class="title">
                     <h3>Access login</h3>
                 </b-col>
-                <b-form ref="formLogin" @reset="onReset" :model="user" method="post">
+                <b-form ref="formLogin" @reset="onReset" v-model="user" method="post">
                     <input type="hidden" name="_csrf" value="">
                     <b-form-group id="exampleInputGroup1"
                                   label="Email:"
-                                  label-for="exampleInput1">
-                        <b-form-input id="exampleInput1"
+                                  label-for="email">
+                        <b-form-input id="email"
                                       type="email"
+                                      name="email"
                                       v-model="user.email"
+                                      v-validate="{ required: true, email: true, regex: regxEmail  }"
                                       placeholder="Enter email">
                         </b-form-input>
+                        <span class="error" v-show="errors.has('email')">{{ errors.first('email') }}</span>
                     </b-form-group>
-                    <b-form-group id="exampleInputGroup2"
-                                  label="Password:"
-                                  label-for="exampleInput2">
-                        <b-form-input id="exampleInput2"
+                    <b-form-group label="Password:"
+                                  label-for="password">
+                        <b-form-input id="password"
                                       type="password"
                                       v-model="user.password"
                                       placeholder="Enter password">
                         </b-form-input>
                     </b-form-group>
                     <b-row>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-button @click="handleSubmit('formLogin', user)" variant="success">LOGIN</b-button>
                         </b-col>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-button type="reset" variant="danger">CANCEL</b-button>
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col col="2" class="link-account">
+                        <b-col cols="6" class="link-account">
                             <b-link to="#foo">Forgot password?</b-link>
                         </b-col>
-                        <b-col col="2" class="link-account">
+                        <b-col cols="6" class="link-account">
                             <b-link to="signup">REGISTER</b-link>
                         </b-col>
                     </b-row>
@@ -80,6 +82,7 @@
                 errorMessage: null,
                 title: null,
                 message: null,
+                regxEmail: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             }
         },
         fetch ({ store, redirect }) {
@@ -110,8 +113,8 @@
             onReset(evt) {
                 evt.preventDefault();
                 /* Reset our form values */
-                this.form.email = '';
-                this.form.password = '';
+                this.user.email = '';
+                this.user.password = '';
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;
                 this.$nextTick(() => {

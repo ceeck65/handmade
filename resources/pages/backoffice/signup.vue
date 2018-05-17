@@ -38,7 +38,7 @@
                                       name="password"
                                       type="password"
                                       v-model="user.password"
-                                      v-validate="{ required: true, is: confirmation, min: 6, regex: /[0-9]+/ }"
+                                      v-validate="{ required: true, min: 6, regex: /[0-9]+/ }"
                                       placeholder="Enter password">
                         </b-form-input>
                         <span class="error" v-show="errors.has('password')">{{ errors.first('password') }}</span>
@@ -49,25 +49,25 @@
                         <b-form-input id="password_confirmation"
                                       type="password"
                                       name="password_confirmation"
-                                      v-model="confirmation"
+                                      v-model="user.password_confirmation"
                                       v-validate="{ required: true, regex: /[0-9]+/ }"
                                       placeholder="Confirm password">
                         </b-form-input>
                         <span class="error" v-show="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                     </b-form-group>
                     <b-row>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-button @click="handleSubmit('formLogin', user)" variant="success">REGISTER</b-button>
                         </b-col>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-button type="reset" variant="danger">CANCEL</b-button>
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-link to="#foo">Link</b-link>
                         </b-col>
-                        <b-col col="2">
+                        <b-col cols="6">
                             <b-link to="login">LOGIN</b-link>
                         </b-col>
                     </b-row>
@@ -149,15 +149,13 @@
             async register(user) {
                 const register = await this.$store.dispatch('register', user);
                 if (register === true) {
-                    this.$Message.success('Success!');
-                    this.showSuccessMsg({title: 'Error!', message: register.message, type: 'success', timeout: 1000})
+                    this.showSuccessMsg({title: 'Success!', message: "Welcome", type: 'success', timeout: 1000});
                     this.$Modal.info({
                         title: 'Confirm E-Mail',
                         content: 'Please confirm your e-mail address to activate your account!',
                         okText: 'OK',
                         onOk: () => {
                             this.$router.replace({path: '/'});
-
                         }
                     })
                 } else if (register.jwt) {
@@ -165,8 +163,7 @@
                     this.$router.replace({path: '/'});
                 } else {
 //                    this.signUpErrors = register;
-
-                    this.showErrorMsg({title: 'Error!', message: register, type: 'error', timeout: 1000})
+                    this.showErrorMsg({title: 'Error!', message: register[0].message, type: 'error', timeout: 5000})
                 }
             }
         },notifications: {
