@@ -17,6 +17,7 @@
             Logo
         },
         fetch ({ store, redirect }) {
+            console.log(store);
             if (!store.state.auth) {
                 return redirect('/backoffice/login')
             }

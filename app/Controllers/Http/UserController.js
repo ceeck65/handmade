@@ -8,6 +8,7 @@ const crypto = use('crypto');
 const Env = use('Env');
 const Logger = use('Logger');
 const Encryption = use('Encryption');
+const Session = use('Session');
 
 class UserController {
 
@@ -90,7 +91,9 @@ class UserController {
                     email: user.email
                 };
                 const data = {jwt, user: userInfo};
+                session.put('username', userInfo.username)
                 return response.send(data);
+
             } else {
                 Logger.info('Login - User deactivated %s', email);
                 return response.send('User deactivated - Please confirm your E-Mail!');
