@@ -90,6 +90,7 @@ class UserController {
                     email: user.email
                 };
                 const data = {jwt, user: userInfo};
+                request.cookie('name', user);
                 return response.send(data);
             } else {
                 Logger.info('Login - User deactivated %s', email);

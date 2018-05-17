@@ -18,7 +18,7 @@ const store = () => new Vuex.Store({
     },
 
     getters: {
-        auth: state => state.auth,
+        auth: state => localStorage.getItem('session'),
         token: state => state.auth.jwt.token
     },
 
@@ -43,6 +43,7 @@ const store = () => new Vuex.Store({
                 if (auth.jwt) {
                     commit('SET_USER', auth);
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
+                    localStorage.setItem('session', 'true');
                     this.$axios.setToken(auth.jwt.token, 'Bearer');
                 }
                 return auth
@@ -63,6 +64,7 @@ const store = () => new Vuex.Store({
                 if (auth.jwt) {
                     commit('SET_USER', auth);
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
+                    localStorage.setItem('session', 'true');
                     this.$axios.setToken(auth.jwt.token, 'Bearer');
                 }
                 return auth

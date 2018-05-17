@@ -5,7 +5,7 @@
                 <b-col class="title">
                     <h3>Access login</h3>
                 </b-col>
-                <b-form ref="formLogin" @reset="onReset" v-model="user" method="post">
+                <b-form ref="formLogin" @reset="onReset" :model="user" method="post">
                     <input type="hidden" name="_csrf" value="">
                     <b-form-group id="exampleInputGroup1"
                                   label="Email:"
@@ -86,7 +86,7 @@
             }
         },
         fetch ({ store, redirect }) {
-            if (store.state.auth) {
+            if (localStorage.getItem('session') === true) {
                 return redirect('/')
             }
         },
@@ -113,8 +113,8 @@
             onReset(evt) {
                 evt.preventDefault();
                 /* Reset our form values */
-                this.user.email = '';
-                this.user.password = '';
+                // this.user.email = '';
+                // this.user.password = '';
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;
                 this.$nextTick(() => {
