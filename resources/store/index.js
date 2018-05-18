@@ -51,7 +51,7 @@ const store = () => new Vuex.Store({
                 if (auth.jwt) {
                     commit('SET_USER', auth);
                     commit('SET_TOKEN', tokens);
-                    Cookie.set('auth', tokens, {expires: 325});
+                    Cookie.set('auth', tokens);
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
                     localStorage.setItem('session', 'true');
                     this.$axios.setToken(auth.jwt.token, 'Bearer');

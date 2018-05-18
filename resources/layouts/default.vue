@@ -31,7 +31,7 @@
                                     <em>User</em>
                                 </template>
                                 <b-dropdown-item href="#">Profile</b-dropdown-item>
-                                <b-dropdown-item href="/backoffice/logout">Signout</b-dropdown-item>
+                                <b-dropdown-item href="#" v-on:click="logout">Logout</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
                     </b-collapse>
@@ -71,8 +71,17 @@
 </template>
 
 <script>
+    import Cookie from 'js-cookie';
     export default {
         name: 'default-layout',
+        methods: {
+            logout: function (event) {
+              let logout =   this.$store.dispatch('logout');
+              console.log(logout);
+                Cookie.remove('auth');
+              window.location.href = "backoffice/login";
+            }
+        },
         async asyncData({app, store, redirect}) {
             if (! store.state.auth) {
                 redirect(301, '/account/login')
