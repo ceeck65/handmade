@@ -72,6 +72,7 @@
     export default {
         name: "login",
         layout: 'auth-layout',
+        middleware: "authenticatedAdmin",
         data() {
             return {
                 user: {
@@ -83,11 +84,6 @@
                 title: null,
                 message: null,
                 regxEmail: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            }
-        },
-        fetch ({ store, redirect }) {
-            if (localStorage.getItem('session') === true) {
-                return redirect('/')
             }
         },
         methods: {

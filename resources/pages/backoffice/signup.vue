@@ -100,6 +100,7 @@
     export default {
         name: "signup",
         layout: 'auth-layout',
+        middleware: "authenticatedAdmin",
         data() {
             return {
                 user: {

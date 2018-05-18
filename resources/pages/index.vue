@@ -13,14 +13,10 @@
     import Logo from '~/components/Logo.vue'
     export default {
         name: "index",
+        middleware: "authenticated",
         components: {
             Logo
         },
-        fetch ({ store, redirect }) {
-            if (!store.state.auth) {
-                return redirect('/backoffice/login')
-            }
-        }
     }
 </script>
 

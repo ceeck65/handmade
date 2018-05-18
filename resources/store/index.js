@@ -1,25 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-
+import Cookie from 'js-cookie'
+let cookieparser = require('cookieparser');
+let UUID = require('uuid-js');
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
 const store = () => new Vuex.Store({
 
     state: {
-        auth: null
+        auth: null,
+        tokens: null
     },
 
     mutations: {
         SET_USER: function (state, user) {
             state.auth = user
+        },
+        SET_TOKEN: function (state, token) {
+            state.tokens = token
         }
     },
 
     getters: {
-        auth: state => localStorage.getItem('session'),
-        token: state => state.auth.jwt.token
+        auth: state => state.auth,
+        token: state => state.auth.jwt.token,
+        tokens: state => state.tokens
     },
 
     actions: {
@@ -40,8 +47,11 @@ const store = () => new Vuex.Store({
         async login({commit}, user) {
             try {
                 const auth = await this.$axios.$post('login', user);
+                const tokens = 'someStringGotFromApiServiceWithAjax';
                 if (auth.jwt) {
                     commit('SET_USER', auth);
+                    commit('SET_TOKEN', tokens);
+                    Cookie.set('auth', tokens, {expires: 325});
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
                     localStorage.setItem('session', 'true');
                     this.$axios.setToken(auth.jwt.token, 'Bearer');
@@ -55,6 +65,7 @@ const store = () => new Vuex.Store({
         async logout({commit}) {
             await this.$axios.$post('logout');
             commit('SET_USER', null);
+            Cookie.remove('auth');
             localStorage.removeItem('handmade_auth');
         },
 
