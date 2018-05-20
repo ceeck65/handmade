@@ -2,6 +2,7 @@
 'use strict';
 const User = use('App/Models/User');
 const Confirm = use('App/Models/Confirm');
+const Session = use('App/Models/Session');
 const {validate} = use('Validator');
 const Mail = use('Mail');
 const crypto = use('crypto');
@@ -15,10 +16,12 @@ class UserController {
      * Creating a new user into the database.
      */
     async store({auth, request, response}) {
-        const data = request.only(['username', 'email', 'password', 'password_confirmation']);
+        const data = request.only(['username', 'email', 'first', 'last', 'password', 'password_confirmation']);
         const validation = await validate(data, {
                 username: 'required|unique:users',
                 email: 'required|email|unique:users',
+                first: 'required',
+                last: 'required',
                 password: 'required',
                 password_confirmation: 'required_if:password|same:password'
             },
@@ -63,7 +66,7 @@ class UserController {
                 user.active = true;
                 await user.save();
                 const jwt = await auth.withRefreshToken().generate(user, true);
-                const userInfo = {id: user.id, username: user.username, email: user.email};
+                const userInfo = {id: user.id, username: user.username, email: user.email, fullname: user.first + " " + user.last};
                 Logger.info('Register - User created without confirm mail %s', user.email);
                 return response.send({jwt, user: userInfo})
             }
@@ -87,7 +90,8 @@ class UserController {
                 const userInfo = {
                     id: user.id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    fullname: user.first + " " + user.last
                 };
                 const data = {jwt, user: userInfo};
                 return response.send(data);
@@ -200,6 +204,17 @@ class UserController {
                 Logger.info('ConfirmAccount - Link expired - UserID: %s', confirm.user_id);
                 return response.send('Confirm Link expired!');
             }
+        }
+        catch (err) {
+            Logger.error('ConfirmAccount - Confirm Token not found %s', request.input('token'));
+            return response.send('Confirm Token not found!');
+        }
+    }
+
+    async checkToken({request, response}) {
+        try {
+            const auth = JSON.parse(localStorage.getItem('handmade_auth'));
+            return await Session.findBy('token', auth.jwt.token);
         }
         catch (err) {
             Logger.error('ConfirmAccount - Confirm Token not found %s', request.input('token'));

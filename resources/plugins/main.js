@@ -4,7 +4,9 @@ import VueNotifications from 'vue-notifications';
 import miniToastr from 'mini-toastr';
 import VeeValidate from 'vee-validate';
 import {Link} from 'bootstrap-vue/es/components';
-
+import VueMaterialIcon from 'vue-material-icon';
+import Vue2Filters from 'vue2-filters';
+Vue.component(VueMaterialIcon.name, VueMaterialIcon, Vue2Filters);
 
 miniToastr.init();
 const options = {

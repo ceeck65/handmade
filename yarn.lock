@@ -7348,6 +7348,10 @@ vue-loader@13.7.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
+vue-material-icon@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-material-icon/-/vue-material-icon-1.0.1.tgz#00f92bdaf654391450e8880fb0da8683ff09988e"
+
 vue-meta@^1.4.3:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-1.5.0.tgz#02a9f166a1e87763a87bfd47431122ed575bcdde"
@@ -7408,6 +7412,10 @@ vue-toastr-2@^0.0.9:
 vue-toastr@^2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/vue-toastr/-/vue-toastr-2.0.14.tgz#c9e9a105eea1a8d14a4dfcbeb6c6e92510646a88"
+
+vue2-filters@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.3.0.tgz#3d6b71169fb14b32a2ddbfa45f94d9a0fdee1094"
 
 vue@^2.0.9, vue@^2.5.13:
   version "2.5.16"

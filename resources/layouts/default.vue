@@ -41,8 +41,8 @@
         <aside class="main-sidebar" id="main-sidebar">
             <div class="sidebar">
                 <div class="container-avatar">
-                    <img src="../static/img/avatar.png">
-                    <!--<div>Username: {{ $store.state.auth.user.username }}</div>-->
+                    <img src="../static/img/avatar.png"><br><br>
+                    <span>{{ $store.state.auth.user.username | capitalize }}</span>
                 </div>
                 <!--<div class="username" v-if="!$store.state.auth">-->
                 <!--<img src="../static/img/logo.png" width="64" height="64">-->
@@ -74,15 +74,17 @@
     import Cookie from 'js-cookie';
     export default {
         name: 'default-layout',
+        middleware: "authenticated",
         methods: {
             logout: function (event) {
               let logout =   this.$store.dispatch('logout');
-              console.log(logout);
                 Cookie.remove('auth');
+                Cookie.remove('token');
               window.location.href = "backoffice/login";
             }
         },
         async asyncData({app, store, redirect}) {
+            console.log(store.state);
             if (! store.state.auth) {
                 redirect(301, '/account/login')
             }
