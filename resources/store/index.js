@@ -34,7 +34,7 @@ const store = () => new Vuex.Store({
         nuxtClientInit({commit}) {
             if (typeof localStorage !== 'undefined' && localStorage.getItem('handmade_auth')) {
                 const auth = JSON.parse(localStorage.getItem('handmade_auth'));
-                // const auth = JSON.parse(Cookie.get('auth'));
+                // const auth = Cookie.get('auth');
                 commit('SET_USER', auth);
                 this.$axios.setToken(auth.jwt.token, 'Bearer');
             }
@@ -49,15 +49,14 @@ const store = () => new Vuex.Store({
         async login({commit}, user) {
             try {
                 const auth = await this.$axios.$post('login', user);
-                const tokens = UUID.create();
                 if (auth.jwt) {
                     commit('SET_USER', auth.user);
-                    commit('SET_TOKEN', tokens.toString());
-                    Cookie.set('token', tokens.toString());
+                    commit('SET_TOKEN', auth.token.token.toString());
+                    Cookie.set('token',  auth.token.token.toString());
                     Cookie.set('auth', JSON.stringify(auth.user));
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
                     this.$axios.setToken(auth.jwt.token, 'Bearer');
-                    session.put('username', 'virk')
+                    // session.put('username', 'virk')
                 }
                 return auth
             } catch (err) {
@@ -78,9 +77,12 @@ const store = () => new Vuex.Store({
             try {
                 const auth = await this.$axios.$post('register', user);
                 if (auth.jwt) {
-                    commit('SET_USER', auth);
                     localStorage.setItem('handmade_auth', JSON.stringify(auth));
                     localStorage.setItem('session', 'true');
+                    commit('SET_USER', auth.user);
+                    commit('SET_TOKEN', tokens.toString());
+                    Cookie.set('token', tokens.toString());
+                    Cookie.set('auth', JSON.stringify(auth.user));
                     this.$axios.setToken(auth.jwt.token, 'Bearer');
                 }
                 return auth

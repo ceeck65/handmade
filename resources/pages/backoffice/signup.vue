@@ -20,6 +20,30 @@
                         <span class="error" v-show="errors.has('username')">{{ errors.first('username') }}</span>
                     </b-form-group>
                     <b-form-group horizontal id="exampleInputGroup1"
+                                  label="First Name:"
+                                  label-for="exampleInput1">
+                        <b-form-input id="exampleInput1"
+                                      type="text"
+                                      name="first_name"
+                                      v-model="user.first_name"
+                                      v-validate="{ required: true, regex: /[A-Z-a-z]\s+/ }"
+                                      placeholder="Enter First Name">
+                        </b-form-input>
+                        <span class="error" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+                    </b-form-group>
+                    <b-form-group horizontal id="exampleInputGroup1"
+                                  label="Last Name:"
+                                  label-for="exampleInput1">
+                        <b-form-input id="exampleInput1"
+                                      type="text"
+                                      name="last_name"
+                                      v-model="user.last_name"
+                                      v-validate="{ required: true, regex: /[A-Z-a-z]\s+/ }"
+                                      placeholder="Enter Last Name">
+                        </b-form-input>
+                        <span class="error" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+                    </b-form-group>
+                    <b-form-group horizontal id="exampleInputGroup1"
                                   label="Email:"
                                   label-for="email">
                         <b-form-input id="email"
@@ -106,6 +130,8 @@
             return {
                 user: {
                     username: '',
+                    first_name: '',
+                    last_name: '',
                     email: '',
                     password: '',
                     password_confirmation: '',
@@ -152,14 +178,8 @@
                 const register = await this.$store.dispatch('register', user);
                 if (register === true) {
                     this.showSuccessMsg({title: 'Success!', message: "Welcome", type: 'success', timeout: 1000});
-                    this.$Modal.info({
-                        title: 'Confirm E-Mail',
-                        content: 'Please confirm your e-mail address to activate your account!',
-                        okText: 'OK',
-                        onOk: () => {
-                            this.$router.replace({path: '/'});
-                        }
-                    })
+                    this.showSuccessMsg({title: 'Confirm e-mail!', message: "Please confirm your e-mail address to activate your account!", type: 'success', timeout: 1000});
+                    this.$router.replace({path: '/'});
                 } else if (register.jwt) {
                     this.$Message.success('Success!');
                     this.$router.replace({path: '/'});

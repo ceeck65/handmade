@@ -3,12 +3,14 @@
 const User = use('App/Models/User');
 const Confirm = use('App/Models/Confirm');
 const Session = use('App/Models/Session');
+const Database = use('Database');
 const {validate} = use('Validator');
 const Mail = use('Mail');
 const crypto = use('crypto');
 const Env = use('Env');
 const Logger = use('Logger');
 const Encryption = use('Encryption');
+let UUID = require('uuid-js');
 
 class UserController {
 
@@ -16,12 +18,12 @@ class UserController {
      * Creating a new user into the database.
      */
     async store({auth, request, response}) {
-        const data = request.only(['username', 'email', 'first', 'last', 'password', 'password_confirmation']);
+        const data = request.only(['username', 'email', 'first_name', 'last_name', 'password', 'password_confirmation']);
         const validation = await validate(data, {
                 username: 'required|unique:users',
                 email: 'required|email|unique:users',
-                first: 'required',
-                last: 'required',
+                first_name: 'required',
+                last_name: 'required',
                 password: 'required',
                 password_confirmation: 'required_if:password|same:password'
             },
@@ -66,7 +68,12 @@ class UserController {
                 user.active = true;
                 await user.save();
                 const jwt = await auth.withRefreshToken().generate(user, true);
-                const userInfo = {id: user.id, username: user.username, email: user.email, fullname: user.first + " " + user.last};
+                const userInfo = {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    fullname: user.first_name + " " + user.last_name
+                };
                 Logger.info('Register - User created without confirm mail %s', user.email);
                 return response.send({jwt, user: userInfo})
             }
@@ -79,7 +86,7 @@ class UserController {
     /**
      * Login a user and return jwt token.
      */
-     async login({auth, request, response}) {
+    async login({auth, request, response}) {
         const {email, password} = request.all();
         try {
             let user = await User.findBy('email', email);
@@ -91,9 +98,27 @@ class UserController {
                     id: user.id,
                     username: user.username,
                     email: user.email,
-                    fullname: user.first + " " + user.last
+                    fullname: user.first_name + " " + user.last_name
                 };
-                const data = {jwt, user: userInfo};
+
+                let uuid4 = UUID.create();
+                const token = {
+                    token: uuid4.toString().toUpperCase()
+                };
+
+                let headers = request.headers();
+                const session_data = {
+                    token: uuid4.toString().toUpperCase(),
+                    user_agent: headers.user_agent,
+                    ip_addres: request.ip(),
+                    active: true,
+                    user_id: user.id
+                };
+                const userId = await Database
+                    .insert(session_data)
+                    .into('sessions');
+
+                const data = {jwt, user: userInfo, token};
                 return response.send(data);
             } else {
                 Logger.info('Login - User deactivated %s', email);
@@ -109,7 +134,7 @@ class UserController {
     /**
      * Logout a user and delete the refresh tokens in the database.
      */
-     async logout({auth, request, response}) {
+    async logout({auth, request, response}) {
         const header = await auth.getAuthHeader();
         const decodedHeader = Encryption.base64Decode(header.split('.')[1]);
         const userToken = JSON.parse(decodedHeader);
@@ -124,7 +149,7 @@ class UserController {
     /**
      * Get new jwt token by users refresh token.
      */
-     async refreshToken({auth, request, response}) {
+    async refreshToken({auth, request, response}) {
         try {
             const params = request.only(['refreshToken']);
             const header = await auth.getAuthHeader();
@@ -149,7 +174,7 @@ class UserController {
     /**
      * Check username exist for signup.
      */
-     async checkUsername({request, response}) {
+    async checkUsername({request, response}) {
         let exist = await User.findBy('username', request.input('username'));
         return response.send(!!exist);
     }
@@ -157,7 +182,7 @@ class UserController {
     /**
      * Check e-mail exist for signup.
      */
-     async checkEmail({request, response}) {
+    async checkEmail({request, response}) {
         let exist = await User.findBy('email', request.input('email'));
         return response.send(!!exist);
     }
@@ -165,7 +190,7 @@ class UserController {
     /**
      * Create confirm token for validation of e-mail address
      */
-     async createConfirmToken(user) {
+    async createConfirmToken(user) {
         const hmac = crypto.createHmac('sha256', Env.get('APP_KEY'));
         hmac.update(user.email);
         let token = hmac.digest('hex');
@@ -182,7 +207,7 @@ class UserController {
     /**
      * Confirm the e-mail with confirm token
      */
-     async confirmAccount({request, response}) {
+    async confirmAccount({request, response}) {
         try {
             let confirm = await Confirm.findBy('token', request.input('token'));
             if (confirm.created_at.unix() + confirm.valid > Math.round(+new Date() / 1000)) {

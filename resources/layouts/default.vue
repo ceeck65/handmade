@@ -41,8 +41,8 @@
         <aside class="main-sidebar" id="main-sidebar">
             <div class="sidebar">
                 <div class="container-avatar">
-                    <img src="../static/img/avatar.png"><br><br>
-                    <span>{{ $store.state.auth.user.username | capitalize }}</span>
+                    <img src="../static/img/avatar.png"><br>
+                    <span v-if="$store.state.auth.user.fullname">{{ $store.state.auth.user.fullname | capitalize }}</span>
                 </div>
                 <!--<div class="username" v-if="!$store.state.auth">-->
                 <!--<img src="../static/img/logo.png" width="64" height="64">-->
@@ -80,6 +80,7 @@
               let logout =   this.$store.dispatch('logout');
                 Cookie.remove('auth');
                 Cookie.remove('token');
+                localStorage.removeItem('handmade_auth');
               window.location.href = "backoffice/login";
             }
         },

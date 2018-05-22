@@ -104,7 +104,8 @@
                 if (auth.jwt) {
                     // this.$Message.success('Login successful!');
                     this.showSuccessMsg({title: 'Success!', message: "Welcome", type: 'success', timeout: 1000});
-                    this.$router.replace({path: '/'});
+                    // this.$router.replace({path: '/'});
+                    window.location.href = "/";
                 } else {
                     this.showErrorMsg({title: 'Error!', message: auth, type: 'error', timeout: 1000})
                 }
