@@ -1,5 +1,5 @@
 <template>
-    <div id="__web-layout">
+    <container id="__web-layout"  class="flyout" fluid>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
@@ -106,30 +106,32 @@
         </div>
         <!-- /.container -->
 
+        
+
         <!-- Footer -->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-            </div>
-            <!-- /.container -->
-        </footer>
-
-        <!-- Bootstrap core JavaScript -->
-    </div>
-
+        <Ftr color="default-color">
+            <p class="footer-copyright mb-0 py-3 text-center">
+                &copy; {{new Date().getFullYear()}} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+            </p>
+        </Ftr>
+    </container>
 </template>
 
 <script>
+    import '../assets/css/handmade.css';
     import Nuxt from "../../.nuxt/components/nuxt";
     export default {
         components: {Nuxt},
         name: "web-layout"
     }
 </script>
-
 <style scoped>
-    #__web-layout {
-        margin: 15px 0;
-        padding: 35px 0 100px 0;
+
+    .flyout {
+        display:flex;
+        flex-direction: column;
+        min-height:100vh;
+        justify-content: space-between;
     }
+
 </style>

@@ -6,14 +6,57 @@
                 handmade
             </h1>
         </div>
+
+        <form>
+            <!--First row-->
+            <row>
+                <!--First column-->
+                <column md="6">
+                    <mdinput label="Type your email" icon="envelope" ></mdinput>
+                </column>
+                <!--Second column-->
+                <column md="6">
+                    <mdinput type="password" label="Type your password" icon="lock" ></mdinput>
+                </column>
+            </row>
+            <!--/.First row-->
+            
+            <!--Second row-->
+            <row>
+                <!--First column-->
+                <column md="12">
+                    <mdtextarea label="Basic textarea"></mdtextarea>
+                </column>
+            </row>
+            <!--/.Second row-->
+
+            <!--Third row-->
+            <row>
+                <!--First column-->
+                <column md="4">
+                    <mdinput label="Example label" ></mdinput>
+                </column>
+                <!--Second column-->
+                <column md="4">
+                    <mdinput label="Example label" ></mdinput>
+                </column>
+                <!--Third column-->
+                <column md="4">
+                    <mdinput label="Example label" ></mdinput>
+                </column>
+            </row>
+            <!--/.Third row-->
+        </form>
+
+
     </section>
 </template>
 
 <script>
     import Logo from '~/components/Logo.vue'
     export default {
+        layout: "web-layout",
         name: "index",
-        middleware: "authenticated",
         components: {
             Logo
         },

@@ -33,7 +33,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/css/main.css'
+    '~assets/css/main.css',
+    '~assets/themes/handmade.scss'
   ],
 
   /*
@@ -45,6 +46,8 @@ module.exports = {
       '~/plugins/font-awesome',
       '~/plugins/main',
       '~/plugins/vue2-filters',
+      '~/plugins/material-bootstrap',
+      // '~/plugins/styles',
      { src: '~/plugins/nuxt-client-init.js', ssr: false }
     ],
 
