@@ -1,5 +1,7 @@
 // Forms basic
 // Input + label wrapper styles
+@import "../core/variables";
+@import "../core/mixins";
 .md-form {
   // Text inputs
   input[type=text],
@@ -101,8 +103,7 @@
     margin: 0 0 $input-form-control-margin-bottom 0;
     border-radius: 0;
     padding: $input-form-control-padding-top 0 $input-form-control-padding-bottom 0;
-    background-image: none;
-    background-color: transparent;
+    background: transparent none;
     &:focus {
       box-shadow: none;
       background: transparent;
@@ -150,8 +151,7 @@
       resize: none;
     }
     &.md-textarea-auto {
-      padding: 0;
-      padding-top: $textarea-padding;
+      padding: $textarea-padding 0 0;
     }
   }
 }

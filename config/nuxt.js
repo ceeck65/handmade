@@ -47,7 +47,7 @@ module.exports = {
       '~/plugins/main',
       '~/plugins/vue2-filters',
       '~/plugins/material-bootstrap',
-      // '~/plugins/styles',
+      '~/plugins/styles',
      { src: '~/plugins/nuxt-client-init.js', ssr: false }
     ],
 

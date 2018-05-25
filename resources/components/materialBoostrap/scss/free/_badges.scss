@@ -1,4 +1,6 @@
 // Badges
+@import "../core/variables";
+@import "../core/mixins";
 .badge {
   @extend .z-depth-1;
   border-radius: $border-radius-base;

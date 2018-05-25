@@ -1,5 +1,8 @@
 // Modals
 // Styles for body
+@import "../core/variables";
+@import "../core/global";
+
 body {
   &.modal-open {
     overflow: auto;

@@ -1,58 +1,38 @@
 <template>
     <section class="container">
-        <div>
-            <logo></logo>
-            <h1 class="title">
-                handmade
-            </h1>
+        <h4><strong>Material design inputs</strong></h4>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="text" label="Basic example"></md-input>
+            <md-input size="sm" type="text" label="Small input"></md-input>
         </div>
-
-        <form>
-            <!--First row-->
-            <row>
-                <!--First column-->
-                <column md="6">
-                    <mdinput label="Type your email" icon="envelope" ></mdinput>
-                </column>
-                <!--Second column-->
-                <column md="6">
-                    <mdinput type="password" label="Type your password" icon="lock" ></mdinput>
-                </column>
-            </row>
-            <!--/.First row-->
-            
-            <!--Second row-->
-            <row>
-                <!--First column-->
-                <column md="12">
-                    <mdtextarea label="Basic textarea"></mdtextarea>
-                </column>
-            </row>
-            <!--/.Second row-->
-
-            <!--Third row-->
-            <row>
-                <!--First column-->
-                <column md="4">
-                    <mdinput label="Example label" ></mdinput>
-                </column>
-                <!--Second column-->
-                <column md="4">
-                    <mdinput label="Example label" ></mdinput>
-                </column>
-                <!--Third column-->
-                <column md="4">
-                    <mdinput label="Example label" ></mdinput>
-                </column>
-            </row>
-            <!--/.Third row-->
-        </form>
-
-
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="text" label="Input with icon" icon="envelope" ></md-input>
+        </div>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="text" label="Example label" placeholder="Placeholder" ></md-input>
+        </div>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="text" label="Basic example" disabled ></md-input>
+        </div>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="email" label="Your e-mail" ></md-input>
+        </div>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-input type="password" label="Password" ></md-input>
+        </div>
+        <div style="margin-top:3rem;max-width:20rem">
+            <md-textarea label="Textarea" ></md-textarea>
+        </div>
+        <h4 class="mt-5 mb-3"><strong>Default inputs</strong></h4>
+        <div style="max-width:20rem">
+            <label for="exampleForm2">Default input</label>
+            <input type="text" id="exampleForm2" class="form-control">
+        </div>
     </section>
 </template>
 
 <script>
+    import "../components/materialBoostrap/css/mdb.css";
     import Logo from '~/components/Logo.vue'
     export default {
         layout: "web-layout",

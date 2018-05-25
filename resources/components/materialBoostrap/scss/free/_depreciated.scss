@@ -1,5 +1,6 @@
 // These settings will be only for one version
-
+@import "../core/variables";
+@import "../core/mixins";
 // Masks
 .view {
   .full-bg-img {
@@ -7,8 +8,7 @@
   }
   .full-bg-img,
   .full-bg-img video {
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: no-repeat center center;
     background-size: cover;
   }
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Material Design for Bootstrap 4
  * Version: MDB Free 4.5.1
@@ -25,11 +26,9 @@
  *
  */
 
-@charset "UTF-8";
-
 // Bootstrap
 @import "core/bootstrap/functions";
-//@import "core/bootstrap/variables";
+@import "core/bootstrap/variables";
 
 // CORE
 @import "core/mixins";

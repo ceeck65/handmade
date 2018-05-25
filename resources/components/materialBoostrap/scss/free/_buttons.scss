@@ -1,4 +1,7 @@
 // Buttons
+@import "../core/variables";
+@import "../core/mixins";
+
 .btn {
   @extend .z-depth-1;
   @include button-size($btn-padding-y-basic, $btn-padding-x-basic, $btn-font-size-basic);

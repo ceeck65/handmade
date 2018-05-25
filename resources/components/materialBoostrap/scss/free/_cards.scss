@@ -1,4 +1,7 @@
 // Cards
+@import "../core/global";
+@import "../core/mixins";
+
 .card {
   @extend .z-depth-1;
   border: 0;
