@@ -1,4 +1,4 @@
-<template class="fullscreen_bg">
+<template>
     <div class="fullscreen_bg">
         <b-row>
             <b-col cols="4" offset="4" class="login-container align-middle">
@@ -139,6 +139,16 @@
 </script>
 
 <style scoped>
+    body, html {
+        background: #15b5cc url("../../static/img/bg-login.jpg") !important;
+    }
+    .fullscreen_bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: contain;
+        background: url('../../static/img/bg-login.jpg') no-repeat center center;
+    }
 
 
 </style>
