@@ -32,7 +32,6 @@
 </template>
 
 <script>
-    import "../components/materialBoostrap/css/mdb.css";
     import Logo from '~/components/Logo.vue'
     export default {
         layout: "web-layout",

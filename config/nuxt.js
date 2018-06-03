@@ -46,8 +46,9 @@ module.exports = {
       '~/plugins/font-awesome',
       '~/plugins/main',
       '~/plugins/vue2-filters',
-      '~/plugins/material-bootstrap',
+      // '~/plugins/material-bootstrap',
       '~/plugins/styles',
+      '~/plugins/vue-material',
      { src: '~/plugins/nuxt-client-init.js', ssr: false }
     ],
 
