@@ -1,6 +1,6 @@
 # dependencies
 node_modules
-
+.env
 # logs
 npm-debug.log
 
@@ -10,5 +10,4 @@ npm-debug.log
 # Nuxt generate
 dist
 .idea/
-.env
 tmp/
